@@ -1,0 +1,13 @@
+\usepackage{graphicx}
+
+\usepackage{caption}
+\captionsetup[figure]{labelformat=empty, labelsep=none}
+
+\newcommand{\yfigcap}[4]{
+    \begin{figure}[htb]
+        \centering
+        \includegraphics[height=0.9\textheight]{figure/#1_#2#3#4.png}
+        \caption{#2-#3-#4}
+    \end{figure}
+    \clearpage
+}
