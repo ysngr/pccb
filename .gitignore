@@ -5,3 +5,4 @@
 *.log
 *.synctex.gz
 *.xbb
+__pycache__/
