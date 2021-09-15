@@ -5,7 +5,7 @@ DEFAULT_FILE = "pccb.tex"
 FILE_OBJECT = None
 
 TEX_COMMAND_HEAD = [
-    "\\documentclass[dvipdfmx,a4paper,landscape]{jsarticle}",
+    "\\documentclass[dvipdfmx,a4paper,landscape]{article}",
     "\\usepackage[landscape,top=20truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}",
     "\\usepackage{graphicx}",
     "\\usepackage{caption}",
@@ -34,7 +34,7 @@ def generate(fs: list, gen_file: str =None) -> None:
 
 def initialize(gen_file: str) -> None:
     global FILE_OBJECT
-    FILE_OBJECT = open(gen_file, 'w')
+    FILE_OBJECT = open(gen_file, 'w', encoding='utf-8')
     for cmd in TEX_COMMAND_HEAD:
         fwriteln(cmd)
 
