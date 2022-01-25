@@ -19,12 +19,12 @@ fi
 mkdir ${imgdir}
 
 # copy images
-for (( i = ${start}; i <= ${end}; i++ )); do
+for (( i = 10#${start}; i <= 10#${end}; i++ )); do
     zpi=`printf "%03d" ${i}`
     cp ${folder}/*/${zpi}.png ${imgdir}/${zpi}.png
 done
 
-expimgn=$((${end} - ${start} + 1))
+expimgn=$(( 10#${end} - 10#${start} + 1 ))
 actimgn=`ls ${imgdir} -U1 | wc -l`
 if [ ${expimgn} -ne ${actimgn} ]; then
     echo "Invalid number of images."
@@ -36,4 +36,4 @@ fi
 processing-java --sketch=${sketch} --run ${start} ${end}
 
 # remove images
-# rm -r ${imgdir}  # TODO
+rm -r ${imgdir}

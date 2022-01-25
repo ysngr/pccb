@@ -9,8 +9,7 @@ int start, end;
 void setup() {
   size(100, 100);
   hideWindow();
-  parseArgs(new String[]{"100", "124"});//debug
-  //parseArgs(args);
+  parseArgs(args);
   resize(5750, 4000);
   background(240);
   noLoop();
@@ -37,51 +36,37 @@ void draw() {
   PImage img;
   float w = 0, h = 0;
   int imgidx = 0;
-  float r, expw, exph, d;
+  float r, sr, sw, sh, d;
 
   for ( int i = start; i <= end; i++ ) {
     // load image
     img = loadImage(String.format("%03d.png", i));
-    /// TODO start
     // put image
-    //if ( img.width == IMGW && img.height == IMGH ) {
-    //  image(img, w, h, IMGW, IMGH);
-    //} else if ( img.width >= img.height ) {
-    //  r = IMGH / img.height;
-    //  expw = r * img.width;
-    //  d = ( img.width >= IMGW )? 0 : (IMGW-expw)/2;
-    //  image(img, w+d, h, expw, IMGH);
-    //} else {
-    //  r = IMGW / img.width;
-    //  exph = r * img.height;
-    //  //image(img, w, h+(IMGH-exph)/2, IMGW, exph);
-    //  d = ( img.height >= IMGH )? 0 : (IMGH-exph)/2;
-    //  image(img, w, h+d, IMGW, exph);
-    //}
-    if ( img.width == IMGW && img.height == IMGH ) {
+    r = float(img.width) / float(img.height);
+    if ( r == IMGW / IMGH ) {
       image(img, w, h, IMGW, IMGH);
-    } else if ( img.width >= img.height ) {
-      r = IMGW / img.width;
-      exph = r * img.height;
-      image(img, w, h, IMGW, exph);
+    } else if ( r > IMGW / IMGH ) {
+      sr = IMGW / img.width;
+      sh = sr * img.height;
+      d = (IMGH - sh) / 2;
+      image(img, w, h+d, IMGW, sh);
     } else {
-      r = IMGH / img.height;
-      expw = r * img.width;
-      image(img, w, h, expw, IMGH);
+      sr = IMGH / img.height;
+      sw = sr * img.width;
+      d = (IMGW - sw) / 2;
+      image(img, w+d, h, sw, IMGH);
     }
-    /// TODO end
-    // next line
+    // next image
     if ( (w += IMGW) >= width ) {
       w = 0;
       h += IMGH;
     }
     // save & next patchwork
-    if ( (i + 1) % sq(IMGNUM) == 0 ) {
+    if ( (i - start + 1) % sq(IMGNUM) == 0 ) {
       saveFrame("../patchwork_"+(imgidx++)+".png");
       h = 0;
       background(240);
     }
   }
-  println("end");//debug
   exit();
 }
